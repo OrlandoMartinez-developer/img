@@ -42,12 +42,12 @@ footer {
   .logo {
     max-width: 30px;
     margin-left: 10px;
-    transition: 0.5s;
+    transition: 0.2s;
   }
   
   .logo:hover {
     transform: scale(1.5);
-    transition: 0.5s;
+    transition: 0.2s;
   }
   
   .footer-overlay {
