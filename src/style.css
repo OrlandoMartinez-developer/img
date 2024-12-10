@@ -126,3 +126,7 @@ footer {
     cursor: pointer;
     color: red;
   }
+
+  img:hover{
+    scale: 1;
+  }

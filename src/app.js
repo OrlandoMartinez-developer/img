@@ -10,7 +10,6 @@ function searchImages() {
     if (searchTerm.trim() !== '') {
         searchApiUrl = `https://api.unsplash.com/photos/random?count=12&query=${searchTerm}&client_id=${apiKey}`;
     } else {
-        // Si el campo de búsqueda está vacío, muestra imágenes aleatorias
         searchApiUrl = apiUrl;
     }
 
@@ -25,59 +24,52 @@ async function fetchImages(apiUrl) {
         const galleryElement = document.getElementById('gallery');
         galleryElement.innerHTML = ''; // Limpiar galería antes de agregar nuevas imágenes
 
-        data.forEach(photo => {
-            const imgElement = document.createElement('img');
-            imgElement.src = photo.urls.small;
-            imgElement.alt = photo.alt_description;
+        // Crear un contenedor para las filas
+        const rowElement = document.createElement('div');
+        rowElement.classList.add('row');
 
-            // Agregar evento clic a la imagen
-            imgElement.addEventListener('click', () => {
-                displayImageInfo(photo);
+        // Dividir las imágenes en 3 columnas
+        const columns = [[], [], []];
+        data.forEach((photo, index) => {
+            columns[index % 3].push(photo); // Distribuir imágenes entre las 3 columnas
+        });
+
+        // Crear las columnas y agregar las imágenes
+        columns.forEach(colImages => {
+            const colElement = document.createElement('div');
+            colElement.classList.add('col-lg-4', 'col-md-6', 'mb-4'); // Clases para columnas
+
+            colImages.forEach(photo => {
+                const imgElement = document.createElement('img');
+                imgElement.src = photo.urls.small;
+                imgElement.alt = photo.alt_description || 'Sin descripción';
+                imgElement.classList.add('w-100', 'shadow-1-strong', 'rounded', 'mb-4'); // Estilo Bootstrap
+
+                // Evento para mostrar información al hacer clic
+                imgElement.addEventListener('click', () => {
+                    displayImageInfo(photo);
+                });
+
+                colElement.appendChild(imgElement);
             });
 
-            galleryElement.appendChild(imgElement);
+            rowElement.appendChild(colElement);
         });
+
+        // Agregar la fila completa al contenedor principal
+        galleryElement.appendChild(rowElement);
     } catch (error) {
         console.error('Error al cargar imágenes:', error);
     }
 }
 
-async function downloadImage(imageUrl, imageName) {
-    try {
-        const response = await fetch(imageUrl, {
-            headers: {
-                Authorization: `Client-ID ${apiKey}`,
-            },
-        });
-
-        if (response.ok) {
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-
-            // Crea un enlace temporal para descargar la imagen
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = imageName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // Libera los recursos
-            window.URL.revokeObjectURL(url);
-        } else {
-            console.error('Error al descargar la imagen:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error al descargar la imagen:', error);
-    }
-}
 
 function displayImageInfo(photo) {
     const modalContent = `
         <div class="modal">
             <img src="${photo.urls.full}" alt="${photo.alt_description}" />
             <p>Resolución: ${photo.width} x ${photo.height}</p>
-            <p>Escala: ${photo.likes}</p>
+            <p>Likes: ${photo.likes}</p>
             <p>Fotógrafo: ${photo.user.name}</p>
             <button class="btn btn-primary" onclick="downloadImage('${photo.urls.full}', '${photo.alt_description}')">Descargar</button>
             <span class="close" onclick="closeModal()">&times;</span>
@@ -94,5 +86,4 @@ function closeModal() {
     }
 }
 
-// Cargar imágenes aleatorias al inicio
 fetchImages(apiUrl);
