@@ -133,7 +133,7 @@ body.dark-mode {
 .btn-theme {
   width: 45px;
   height: 45px;
-  border-radius: 50%;
+  border-radius: 50%; /* Esto asegura que sea perfectamente circular */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,6 +142,9 @@ body.dark-mode {
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
+  padding: 0; /* Asegurarse que no hay padding adicional */
+  margin: 0; /* Eliminar márgenes no deseados */
+  flex-shrink: 0; /* Evitar que se comprima */
 }
 
 .btn-theme:hover {
@@ -153,7 +156,7 @@ body.dark-mode {
   position: relative;
   width: 45px;
   height: 45px;
-  border-radius: 50%;
+  border-radius: 50%; /* Esto asegura que sea perfectamente circular */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,7 +165,9 @@ body.dark-mode {
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
+  padding: 0; /* Asegurarse que no hay padding adicional */
   margin-right: 10px;
+  flex-shrink: 0; /* Evitar que se comprima */
 }
 
 .favorites-btn:hover {

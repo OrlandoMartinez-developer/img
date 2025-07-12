@@ -1,4 +1,4 @@
- const apiKey = 'RqlBxUTPSvYb_zLIBnzVTJkbLzpUXrv4py3pE4rECMs';
+ const apiKey = '';
     const searchBaseUrl = 'https://api.unsplash.com/search/photos?per_page=12';
     const randomBaseUrl = 'https://api.unsplash.com/photos?per_page=12';
     let currentPage = 1;
@@ -199,7 +199,7 @@
     function displayImageInfo(photo) {
       currentPhoto = photo;
       const isDarkMode = document.body.classList.contains('dark-mode');
-      const favs = JSON.parse(localStorage.getItem('favorites') || []);
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
       const isFavorite = favs.includes(photo.id);
       
       // Mostrar loader mientras carga la imagen
@@ -334,7 +334,7 @@
     function toggleFavorite() {
       if (!currentPhoto) return;
       
-      const favs = JSON.parse(localStorage.getItem('favorites') || []);
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
       const isFavorite = favs.includes(currentPhoto.id);
       const favoriteBtn = document.getElementById('favoriteBtn');
       
@@ -396,11 +396,11 @@
       }, 300);
     }
 
-    function updateFavoritesBadge() {
-      const favs = JSON.parse(localStorage.getItem('favorites') || []);
-      favoritesBadgeEl.textContent = favs.length;
-      favoritesBadgeEl.style.display = favs.length > 0 ? 'flex' : 'none';
-    }
+   function updateFavoritesBadge() {
+  const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+  const badge = document.getElementById('favorites-badge');
+  if (badge) badge.textContent = favs.length;
+}
 
     function nextPage() {
       if (currentPage < totalPages) {
