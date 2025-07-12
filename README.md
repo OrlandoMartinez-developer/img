@@ -1,6 +1,6 @@
 # Infinity Gallery - README
 
-![Infinity Gallery Logo](https://via.placeholder.com/150x50/1CB5E0/FFFFFF?text=Infinity+Gallery)
+
 
 ## 📌 Descripción del Proyecto
 
@@ -37,22 +37,13 @@ Infinity Gallery es una galería de imágenes moderna que utiliza la API de Unsp
 - **API**:
   - Unsplash API (para obtener imágenes)
 
-## 📦 Estructura del Proyecto
-
-```
-infinity-gallery/
-├── src/
-│   ├── style.css       # Estilos principales
-│   └── app.js         # Lógica de la aplicación
-├── index.html         # Página principal
-└── README.md          # Este archivo
 ```
 
 ## 🔧 Configuración
 
 1. **Clave API de Unsplash**:
    - Obtén una API key gratuita de [Unsplash Developers](https://unsplash.com/developers)
-   - Reemplaza `RqlBxUTPSvYb_zLIBnzVTJkbLzpUXrv4py3pE4rECMs` en `app.js` con tu propia clave
+   - Reemplaza `` en `app.js` con tu propia clave
 
 2. **Configuración de Firebase**:
    ```bash
